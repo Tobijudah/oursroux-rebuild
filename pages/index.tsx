@@ -1,4 +1,5 @@
 import Head from "next/head";
+import ArrowCircle from "../components/ArrowCircle";
 import Button from "../components/Button";
 
 export default function Home() {
@@ -24,6 +25,9 @@ export default function Home() {
 			
 			<Button left>All projects</Button>
 			<Button right>About</Button>
+			<div className="container">
+				<ArrowCircle/>
+			</div>
 		</div>
 	);
 }
