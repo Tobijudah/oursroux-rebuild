@@ -5,7 +5,7 @@ export type ButtonProps = {
 	right?: boolean;
 };
 
-const Button = styled.div<ButtonProps>`
+const Button = styled.a<ButtonProps>`
 	cursor: pointer;
 	position: fixed;
 	top: 8%;
