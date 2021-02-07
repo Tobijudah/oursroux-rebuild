@@ -8,7 +8,7 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 		box-sizing: content-box;
 		background-color: #000;
 		color: #fff;
-		font-size: 18px;
+		font-size: 16px;
 		font-family: 'Source Sans Pro', sans-serif;
   }
 `;

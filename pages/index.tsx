@@ -1,16 +1,29 @@
-import Head from 'next/head'
+import Head from "next/head";
+import Button from "../components/Button";
 
 export default function Home() {
-  return (
-    <div>
-      <Head>
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimal-ui, shrink-to-fit=no"/>
-        <title>Benjamin Guedj - French designer</title>
-        <link href="https://www.oursroux.com/favicon.ico" rel="shortcut icon"/>
-      </Head>
-
-      
-    </div>
-  )
+	return (
+		<div>
+			<Head>
+				<meta httpEquiv="X-UA-Compatible" content="IE=edge" />
+				<meta
+					name="viewport"
+					content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1, minimal-ui, shrink-to-fit=no"
+				/>
+				<title>Benjamin Guedj - French designer</title>
+				<link rel="preconnect" href="https://fonts.gstatic.com" />
+				<link
+					href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+					rel="stylesheet"
+				/>
+				<link
+					href="https://www.oursroux.com/favicon.ico"
+					rel="shortcut icon"
+				/>
+			</Head>
+			
+			<Button left>All projects</Button>
+			<Button right>About</Button>
+		</div>
+	);
 }
