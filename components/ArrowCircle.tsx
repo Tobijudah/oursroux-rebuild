@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import styled from "styled-components";
 
 type ArrowProps = {
@@ -6,9 +6,13 @@ type ArrowProps = {
 	hover?: boolean;
 }
 
-const Circle = styled.a`
+type CircleProps = {
+	color: string;
+}
+
+const Circle = styled.a<CircleProps>`
 	cursor: pointer;
-	background: rgb(254, 228, 234);
+	background: ${p => p.color};
 	position: fixed;
 	bottom: 10%;
 	right: 5%;
@@ -41,9 +45,9 @@ const Arrow = styled.svg<ArrowProps>`
 	}
 `
 
-export const ArrowCircle = () => {
+export const ArrowCircle: FC<CircleProps> = ({ color }) => {
 	return (
-		<Circle>
+		<Circle color={color}>
 			<Arrow hover viewBox="0 0 56 56" xmlSpace="preserve">
 				<polygon points="31.3,26.8 23.5,19 22.8,19.7 30.6,27.5 22.8,35.3 23.5,36 31.3,28.2 32,27.5"></polygon>
 			</Arrow>
