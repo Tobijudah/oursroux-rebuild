@@ -7,12 +7,12 @@ type ArrowProps = {
 }
 
 type CircleProps = {
-	color: string;
+	Color: string;
 }
 
 const Circle = styled.a<CircleProps>`
 	cursor: pointer;
-	background: ${p => p.color};
+	background: ${p => p.Color};
 	position: fixed;
 	bottom: 10%;
 	right: 5%;
@@ -33,21 +33,17 @@ const Circle = styled.a<CircleProps>`
 `;
 
 const Arrow = styled.svg<ArrowProps>`
+	transform: translate3d(0, -65px, -0) rotate3d(0, 0, 1, 90deg);
 	transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
-	transform: ${(p) =>
-			p.default
-			? "translate3d(0, -65px, -0) rotate3d(0, 0, 1, 90deg)"
-			: "translate3d(0, -65px, -0) rotate3d(0, 0, 1, 90deg)"
-		};
 
 	${Circle}:hover & {
 		transform: rotate3d(0, 0, 1, 90deg) translate3d(0, 0, -0);
 	}
 `
 
-export const ArrowCircle: FC<CircleProps> = ({ color }) => {
+export const ArrowCircle: FC<CircleProps> = ({ Color }) => {
 	return (
-		<Circle color={color}>
+		<Circle Color={Color}>
 			<Arrow hover viewBox="0 0 56 56" xmlSpace="preserve">
 				<polygon points="31.3,26.8 23.5,19 22.8,19.7 30.6,27.5 22.8,35.3 23.5,36 31.3,28.2 32,27.5"></polygon>
 			</Arrow>
