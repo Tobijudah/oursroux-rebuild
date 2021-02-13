@@ -6,6 +6,16 @@ import Button from "../components/Button";
 import Section from "../components/Section";
 import ArrowCircle from "../components/ArrowCircle";
 
+const Container = styled.div`
+	position: relative;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: row-reverse;
+	overflow: hidden;
+`
+
 export default function Home() {
 
 	const [current, setCurrent] = useState<number>(0)
