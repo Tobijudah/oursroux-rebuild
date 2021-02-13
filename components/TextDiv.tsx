@@ -6,17 +6,28 @@ export type TextDivProps = {
   Data: dataType;
 }
 
-const Div = styled.div<TextDivProps>`
+export type TextDivContainerProps = {
+  Color: string;
+}
+
+const TextDivContainer = styled.div<TextDivContainerProps>`
   height: 100vh;
   width: 40%;
-  background-color: ${p => p.Data.color};
+  background-color: ${p => p.Color};
+`
+
+const Number = styled.h2`
+  color: #000;
+  font-size: 2rem;
+  padding: 45% 13%;
+  margin: 0;
 `
 
 const TextDiv: React.FC<TextDivProps> = ({ Data }) => {
   return (
-    <Div Data={Data}>
-      
-    </Div>
+    <TextDivContainer Color={Data.color}>
+      <Number>{Data.id}</Number>
+    </TextDivContainer>
   )
 }
 
