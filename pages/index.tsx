@@ -1,8 +1,15 @@
 import Head from "next/head";
-import ArrowCircle from "../components/ArrowCircle";
+import { useState } from "react";
+import { data } from './api/data';
+import styled from "styled-components";
 import Button from "../components/Button";
+import Section from "../components/Section";
+import ArrowCircle from "../components/ArrowCircle";
 
 export default function Home() {
+
+	const [current, setCurrent] = useState<number>(0)
+
 	return (
 		<div>
 			<Head>
@@ -25,9 +32,12 @@ export default function Home() {
 			
 			<Button left>All projects</Button>
 			<Button right>About</Button>
-			<div className="container">
-				<ArrowCircle/>
-			</div>
+			<Container>
+				<ArrowCircle Color={data[current].color}/>
+				{data.map(data => 
+					<Section key={data.id}  Data={data}/>
+				)}
+			</Container>
 		</div>
 	);
 }
