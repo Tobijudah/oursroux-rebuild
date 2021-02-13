@@ -45,7 +45,7 @@ export default function Home() {
 			<Container>
 				<ArrowCircle Color={data[current].color}/>
 				{data.map(data => 
-					<Section key={data.id}  Data={data}/>
+					<Section key={data.id} Data={data}/>
 				)}
 			</Container>
 		</div>
