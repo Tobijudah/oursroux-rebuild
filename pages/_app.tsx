@@ -2,6 +2,12 @@ import type { AppProps } from "next/app";
 import { createGlobalStyle, DefaultTheme, GlobalStyleComponent } from "styled-components";
 
 const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
+
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
   body {
 		padding: 0;
 		margin: 0;
@@ -13,8 +19,7 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
   }
 
 	h1 {
-		font-family: 'PT Serif', serif;
-		font-weight: 100;
+		font-family: 'Cormorant Garamond', serif;
 	}
 
 	p {
