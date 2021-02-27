@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { useState } from "react";
-import { data } from './api/data';
+import { data } from "./api/data";
 import styled from "styled-components";
 import Button from "../components/Button";
 import Section from "../components/Section";
@@ -14,11 +14,10 @@ const Container = styled.div`
 	justify-content: flex-end;
 	flex-direction: row-reverse;
 	overflow: hidden;
-`
+`;
 
 export default function Home() {
-
-	const [current, setCurrent] = useState<number>(0)
+	const [current, setCurrent] = useState<number>(0);
 
 	return (
 		<div>
@@ -31,7 +30,7 @@ export default function Home() {
 				<title>Benjamin Guedj - French designer</title>
 				<link rel="preconnect" href="https://fonts.gstatic.com" />
 				<link
-					href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap"
+					href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Open+Sans:wght@400;600&display=swap"
 					rel="stylesheet"
 				/>
 				<link
@@ -39,14 +38,14 @@ export default function Home() {
 					rel="shortcut icon"
 				/>
 			</Head>
-			
+
 			<Button left>All projects</Button>
 			<Button right>About</Button>
 			<Container>
-				<ArrowCircle Color={data[current].color}/>
-				{data.map(data => 
-					<Section key={data.id} Data={data}/>
-				)}
+				<ArrowCircle Color={data[current].color} />
+				{data.map((data) => (
+					<Section key={data.id} Data={data} />
+				))}
 			</Container>
 		</div>
 	);
