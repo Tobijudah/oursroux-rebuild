@@ -16,8 +16,8 @@ const Circle = styled.a<CircleProps>`
 	position: fixed;
 	bottom: 10%;
 	right: 5%;
-	width: 60px;
-	height: 60px;
+	width: 56px;
+	height: 56px;
 	z-index: 200;
 	border-radius: 50%;
 	overflow: hidden;
@@ -27,17 +27,17 @@ const Circle = styled.a<CircleProps>`
 
 	&:hover {
 		background: rgb(255, 255, 255);
-		transform: scale3d(1.2, 1.2, 1.2);
+		transform: scale3d(1.095, 1.095, 1.095);
 	}
 
 `;
 
 const Arrow = styled.svg<ArrowProps>`
-	transform: translate3d(0, -65px, -0) rotate3d(0, 0, 1, 90deg);
+	transform: translate3d(0, -58px, -0) rotate3d(0, 0, 1, 90deg);
 	transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 
 	${Circle}:hover & {
-		transform: rotate3d(0, 0, 1, 90deg) translate3d(0, 0, -0);
+		transform: rotate3d(0, 0, 1, 90deg) translate3d(2px, 0, -0) scale3d(0.85, 0.85, 0.85);
 	}
 `
 
