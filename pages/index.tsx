@@ -2,9 +2,11 @@ import Head from "next/head";
 import { useState } from "react";
 import { data } from "./api/data";
 import styled from "styled-components";
+import Title from "../components/Title";
 import Button from "../components/Button";
-import Section from "../components/Section";
 import ArrowCircle from "../components/ArrowCircle";
+import useWindowWidth from "../hooks/useWindowWidth";
+import TitlesWrapper from "../components/TitlesWrapper";
 
 const Container = styled.div`
 	position: relative;
@@ -17,6 +19,7 @@ const Container = styled.div`
 `;
 
 export default function Home() {
+	const size = useWindowWidth();
 	const [current, setCurrent] = useState<number>(0);
 
 	return (
@@ -43,9 +46,13 @@ export default function Home() {
 			<Button right>About</Button>
 			<Container>
 				<ArrowCircle Color={data[current].color} />
-				{data.map((data) => (
-					<Section key={data.id} Data={data} />
-				))}
+				<TitlesWrapper>
+					{data.map(({ index, title }) => (
+						<Title key={index} dataIndex={index} dataSize={size}>
+							{title}
+						</Title>
+					))}
+				</TitlesWrapper>
 			</Container>
 		</div>
 	);

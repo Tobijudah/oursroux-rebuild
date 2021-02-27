@@ -24,6 +24,7 @@ const Circle = styled.a<CircleProps>`
 	transform: scale3d(1, 1, 1);
 	transition: background 0.7s cubic-bezier(0.19, 1, 0.22, 1),
 		transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+	z-index: 21;
 
 	&:hover {
 		background: rgb(255, 255, 255);
