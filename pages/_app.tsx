@@ -30,15 +30,21 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 		color: #000;
 	}
 
+	@media (min-width: 769px) and (max-width: 1024px) {
+		body {
+			font-size: 90%;
+		}
+	}
+
 	@media (min-width: 1024px) and (max-width: 1280px) {
 		body {
 			font-size: 95%;
 		}
 	}
 
-	@media (min-width: 769px) and (max-width: 1024px) {
+	@media (max-width: 768px) {
 		body {
-			font-size: 90%;
+			font-size: 80%;
 		}
 	}
 
