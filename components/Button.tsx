@@ -12,7 +12,7 @@ const Button = styled.a<ButtonProps>`
 	left: ${(p) => (p.left ? "5%" : "initial")};
 	right: ${(p) => (p.right ? "5%" : "initial")};
 	display: block;
-	font-size: 0.9rem;
+	font-size: 0.9em;
 	font-weight: 600;
 	transition: opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1),
 		transform .6s cubic-bezier(.19,1,.22,1);
