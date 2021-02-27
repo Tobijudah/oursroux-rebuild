@@ -21,16 +21,16 @@ const TextDivContainer = styled.div<TextDivContainerProps>`
 
 const Number = styled.h2`
   color: #000;
-  font-size: 1.45rem;
+  font-size: 1.5625em;
   padding: 44.5% 13% 0 13%;
   letter-spacing: -1.5px;
   margin: 0;
 `
 
 const Text = styled.div`
-  font-size: 0.9em;
+  font-size: 0.95em;
   font-weight: 400;
-  line-height: 1.55rem;
+  line-height: 1.75em;
   padding: 15% 13%;
   box-sizing: border-box;
 
