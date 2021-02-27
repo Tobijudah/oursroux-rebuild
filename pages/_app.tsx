@@ -9,8 +9,18 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 		background-color: #000;
 		color: #fff;
 		font-size: 16px;
-		font-family: 'Source Sans Pro', sans-serif;
+		font-family: 'Open Sans', sans-serif;
   }
+
+	h1 {
+		font-family: 'PT Serif', serif;
+		font-weight: 100;
+	}
+
+	p {
+		color: #000;
+	}
+
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
