@@ -1,4 +1,5 @@
 import React from "react";
+import Title from "./Title";
 import TextDiv from "./TextDiv";
 import styled from "styled-components";
 import { dataType } from "../pages/api/data";
@@ -34,9 +35,10 @@ const SectionContainer = styled.section<SectionContainerProps>`
 const Section: React.FC<SectionProps> = ({ Data }) => {
 
   const size = useWindowWidth();
-  
+
 	return (
     <SectionContainer WindowWidth={size} Data={Data}>
+      <Title>{Data.title}</Title>
       <TextDiv Data={Data}/>
     </SectionContainer>
   );
