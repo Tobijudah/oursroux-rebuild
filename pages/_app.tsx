@@ -8,13 +8,17 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 		padding: 0;
 	}
 
+	html {
+		font-size: 16px;
+	}
+
   body {
 		padding: 0;
 		margin: 0;
 		box-sizing: content-box;
 		background-color: #000;
 		color: #fff;
-		font-size: 16px;
+		font-size: 100%;
 		font-family: 'Open Sans', sans-serif;
   }
 
@@ -24,6 +28,18 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 
 	p {
 		color: #000;
+	}
+
+	@media (min-width: 1024px) and (max-width: 1280px) {
+		body {
+			font-size: 95%;
+		}
+	}
+
+	@media (min-width: 769px) and (max-width: 1024px) {
+		body {
+			font-size: 90%;
+		}
 	}
 
 `;
