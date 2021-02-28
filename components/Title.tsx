@@ -15,11 +15,15 @@ type TitleProps = {
 	children: React.ReactNode;
 };
 
+type TitleContainerProps = {
+	translateX: number;
+}
+
 export type TitleRefHandles = {
 	startAnimation: () => void;
 };
 
-const TitleContainer = styled.div<TitleProps>`
+const TitleContainer = styled.div<TitleContainerProps>`
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -30,12 +34,7 @@ const TitleContainer = styled.div<TitleProps>`
 	display: table;
 	text-align: right;
 	margin: auto;
-	transform: ${({ dataIndex, dataSize }) =>
-		`matrix(1, 0, 0, 1, ${
-			dataIndex === 0
-				? -dataSize * 0.05
-				: -dataSize * dataIndex + dataSize * 0.05
-		}, 0)`};
+	transform: ${({ translateX }) => `matrix(1, 0, 0, 1, ${translateX}, 0)`};
 `;
 
 const TitleTextContainer = styled.div`
@@ -89,9 +88,7 @@ const Title: ForwardRefRenderFunction<TitleRefHandles, TitleProps> = (
 	return (
 		<TitleContainer
 			ref={titleRef}
-			dataSize={dataSize}
-			dataIndex={dataIndex}
-			dataCurrent={dataCurrent}
+			translateX={translateX}
 		>
 			<TitleTextContainer>
 				<Titletext>{children}</Titletext>
