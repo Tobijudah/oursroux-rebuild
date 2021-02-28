@@ -1,4 +1,4 @@
-import { Handles } from "../components/Title";
+import { TitleRefHandles } from "../components/Title";
 import { createRef, useEffect, useState } from "react";
 
 const useRefArray = (length: number) => {
@@ -8,7 +8,7 @@ const useRefArray = (length: number) => {
 		setRefs((refs) =>
 			Array(length)
 				.fill(0)
-				.map((_, i) => refs[i] || createRef<Handles>())
+				.map((_, i) => refs[i] || createRef<TitleRefHandles>())
 		);
 	}, [length]);
 
