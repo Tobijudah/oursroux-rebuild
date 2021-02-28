@@ -27,9 +27,27 @@ export default function Home() {
 
 	const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
 		if (isScrolling) return;
+		if (e.deltaY === -0) return;
 		setIsScrolling(true);
-		setCurrent(current + 1);
-		refs && refs.forEach((ref) => ref.current.startAnimation());
+
+		if (e.deltaY > 0) {
+			if (current === 13) {
+				setIsScrolling(false);
+				return;
+			}
+			setCurrent(current + 1);
+			refs && refs.forEach((ref) => ref.current.startAnimation("up"));
+		}
+
+		if (e.deltaY < 0) {
+			if (current === 0) {
+				setIsScrolling(false);
+				return;
+			}
+			setCurrent(current - 1);
+			refs && refs.forEach((ref) => ref.current.startAnimation("down"));
+		}
+
 		setTimeout(() => {
 			setIsScrolling(false);
 		}, 1500);
