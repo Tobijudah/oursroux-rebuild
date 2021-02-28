@@ -15,12 +15,12 @@ type TitleProps = {
 	children: React.ReactNode;
 };
 
-type TitleContainerProps = {
+type TitleContainerProps = Pick<TitleProps, "dataIndex" | "dataCurrent"> & {
 	translateX: number;
-}
+};
 
 export type TitleRefHandles = {
-	startAnimation: () => void;
+	startAnimation: (direction: "up" | "down") => void;
 };
 
 const TitleContainer = styled.div<TitleContainerProps>`
@@ -31,10 +31,11 @@ const TitleContainer = styled.div<TitleContainerProps>`
 	bottom: 0;
 	height: 100%;
 	width: 100%;
-	display: table;
 	text-align: right;
 	margin: auto;
 	transform: ${({ translateX }) => `matrix(1, 0, 0, 1, ${translateX}, 0)`};
+	display: ${({ dataIndex, dataCurrent }) =>
+		dataCurrent - dataIndex > 1 ? "none" : "table"};
 `;
 
 const TitleTextContainer = styled.div`
@@ -59,36 +60,29 @@ const Title: ForwardRefRenderFunction<TitleRefHandles, TitleProps> = (
 ) => {
 	const titleRef = useRef<HTMLDivElement>(null);
 	const [translateX, setTranslateX] = useState(
-		dataIndex === 0
-			? -(dataSize * 0.05)
-			: -dataSize * dataIndex + dataSize * 0.05
+		dataIndex === 0 ? -(dataSize * 0.05) : -(dataSize * dataIndex * 0.95)
 	);
 
 	useImperativeHandle(ref, () => ({
-		startAnimation: () => {
+		startAnimation: (direction) => {
 			TitleAnimation(
+				direction,
 				titleRef.current,
 				dataSize,
 				translateX,
 				dataCurrent,
-				dataIndex
+				dataIndex,
+				setTranslateX
 			);
-			setTimeout(() => {
-				setTranslateX(
-					dataCurrent === dataIndex || dataCurrent > dataIndex
-						? dataSize * 0.9
-						: dataCurrent + 1 === dataIndex
-						? -72
-						: translateX + dataSize
-				);
-			}, 1000);
 		},
 	}));
 
 	return (
 		<TitleContainer
 			ref={titleRef}
+			dataIndex={dataIndex}
 			translateX={translateX}
+			dataCurrent={dataCurrent}
 		>
 			<TitleTextContainer>
 				<Titletext>{children}</Titletext>
