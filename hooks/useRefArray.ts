@@ -1,5 +1,5 @@
 import { TitleRefHandles } from "../components/Title";
-import { createRef, useEffect, useState } from "react";
+import { createRef, RefObject, useEffect, useState } from "react";
 
 const useRefArray = (length: number) => {
 	const [refs, setRefs] = useState([]);
@@ -12,7 +12,7 @@ const useRefArray = (length: number) => {
 		);
 	}, [length]);
 
-	return refs;
+	return refs as RefObject<TitleRefHandles>[];
 };
 
 export default useRefArray;
