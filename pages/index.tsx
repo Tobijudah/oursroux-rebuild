@@ -4,6 +4,7 @@ import { data } from "./api/data";
 import styled from "styled-components";
 import Title from "../components/Title";
 import Button from "../components/Button";
+import useRefArray from "../hooks/useRefArray";
 import ArrowCircle from "../components/ArrowCircle";
 import useWindowWidth from "../hooks/useWindowWidth";
 import TitlesWrapper from "../components/TitlesWrapper";
@@ -20,7 +21,19 @@ const Container = styled.div`
 
 export default function Home() {
 	const size = useWindowWidth();
+	const refs = useRefArray(data.length);
 	const [current, setCurrent] = useState<number>(0);
+	const [isScrolling, setIsScrolling] = useState<boolean>(false);
+
+	const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
+		if (isScrolling) return;
+		setIsScrolling(true);
+		setCurrent(current + 1);
+		refs && refs.forEach((ref) => ref.current.startAnimation());
+		setTimeout(() => {
+			setIsScrolling(false);
+		}, 1500);
+	};
 
 	return (
 		<div>
@@ -44,16 +57,25 @@ export default function Home() {
 
 			<Button left>All projects</Button>
 			<Button right>About</Button>
-			<Container>
-				<ArrowCircle Color={data[current].color} />
-				<TitlesWrapper>
-					{data.map(({ index, title }) => (
-						<Title key={index} dataIndex={index} dataSize={size}>
-							{title}
-						</Title>
-					))}
-				</TitlesWrapper>
-			</Container>
+
+			{typeof size === "number" && (
+				<Container onWheel={(e) => handleScroll(e)}>
+					<ArrowCircle Color={data[current].color} />
+					<TitlesWrapper>
+						{data.map(({ index, title }, i) => (
+							<Title
+								key={index}
+								ref={refs[i]}
+								dataSize={size}
+								dataIndex={index}
+								dataCurrent={current}
+							>
+								{title}
+							</Title>
+						))}
+					</TitlesWrapper>
+				</Container>
+			)}
 		</div>
 	);
 }
