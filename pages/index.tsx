@@ -5,9 +5,11 @@ import styled from "styled-components";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import useRefArray from "../hooks/useRefArray";
+import Background from "../components/Background";
 import ArrowCircle from "../components/ArrowCircle";
 import useWindowWidth from "../hooks/useWindowWidth";
 import TitlesWrapper from "../components/TitlesWrapper";
+import BackgroundsWrapper from "../components/BackgroundsWrapper";
 
 const Container = styled.div`
 	position: relative;
@@ -80,18 +82,28 @@ export default function Home() {
 				<Container onWheel={(e) => handleScroll(e)}>
 					<ArrowCircle Color={data[current].color} />
 					<TitlesWrapper>
-						{data.map(({ index, title }, i) => (
+						{data.map(({ index, title }) => (
 							<Title
 								key={index}
-								ref={refs[i]}
 								dataSize={size}
 								dataIndex={index}
+								ref={refs[index]}
 								dataCurrent={current}
 							>
 								{title}
 							</Title>
 						))}
 					</TitlesWrapper>
+					<BackgroundsWrapper>
+						{data.map(({ index, image }) => (
+							<Background
+								key={index}
+								dataSize={size}
+								dataIndex={index}
+								dataImage={image}
+							/>
+						))}
+					</BackgroundsWrapper>
 				</Container>
 			)}
 		</div>
