@@ -1,19 +1,27 @@
 import React, {
 	useRef,
+	useState,
 	forwardRef,
 	useImperativeHandle,
 	ForwardRefRenderFunction,
 } from "react";
 import styled from "styled-components";
 import { RefHandle } from "../hooks/useRefArray";
+import BackgroundAnimation from "../animations/BackgroundAnimation";
 
 type BackgroundProps = {
 	dataSize: number;
 	dataIndex: number;
 	dataImage: string;
+	dataCurrent: number;
 };
 
-type BackgroundContainerProps = Pick<BackgroundProps, "dataSize" | "dataIndex">;
+type BackgroundContainerProps = Pick<
+	BackgroundProps,
+	"dataIndex" | "dataCurrent"
+> & {
+	translateX: number;
+};
 
 type BackgroundImageProps = Pick<BackgroundProps, "dataImage">;
 
@@ -24,13 +32,21 @@ const BackgroundContainer = styled.div<BackgroundContainerProps>`
 	right: 0;
 	bottom: 0;
 	height: 100%;
-	transform: ${(p) =>
-		`matrix(1, 0, 0, 1, ${
-			p.dataIndex === 0
-				? p.dataSize / 10
-				: Math.round(-0.6 * p.dataIndex * p.dataSize)
-		}, 0)`};
-	z-index: ${(p) => 14 - p.dataIndex};
+	transform: ${(p) => `matrix(1, 0, 0, 1, ${p.translateX}, 0)`};
+	display: ${(p) =>
+		p.dataCurrent === p.dataIndex ||
+		p.dataCurrent - p.dataIndex === -1 ||
+		p.dataCurrent - p.dataIndex === -2 ||
+		p.dataCurrent - p.dataIndex === 1
+			? "block"
+			: "none"};
+	z-index: ${(p) =>
+		p.dataCurrent === p.dataIndex
+			? 3
+			: p.dataCurrent - p.dataIndex === -1 ||
+			  p.dataCurrent - p.dataIndex === 1
+			? 2
+			: null};
 `;
 
 const BackgroundImage = styled.div<BackgroundImageProps>`
@@ -49,20 +65,36 @@ const BackgroundImage = styled.div<BackgroundImageProps>`
 `;
 
 const Background: ForwardRefRenderFunction<RefHandle, BackgroundProps> = (
-	{ dataSize, dataIndex, dataImage },
+	{ dataSize, dataIndex, dataImage, dataCurrent },
 	ref
 ) => {
 	const backgroundRef = useRef<HTMLDivElement>(null);
+	const [translateX, setTranslateX] = useState(
+		dataIndex === 0
+			? dataSize / 10
+			: Math.round(-0.6 * dataIndex * dataSize)
+	);
 
 	useImperativeHandle(ref, () => ({
-		startAnimation: () => {},
+		startAnimation: (direction) => {
+			BackgroundAnimation(
+				direction,
+				backgroundRef.current,
+				dataSize,
+				translateX,
+				dataCurrent,
+				dataIndex,
+				setTranslateX
+			);
+		},
 	}));
 
 	return (
 		<BackgroundContainer
 			ref={backgroundRef}
-			dataSize={dataSize}
 			dataIndex={dataIndex}
+			translateX={translateX}
+			dataCurrent={dataCurrent}
 		>
 			<BackgroundImage dataImage={dataImage} />
 		</BackgroundContainer>

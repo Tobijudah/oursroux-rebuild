@@ -40,6 +40,7 @@ export default function Home() {
 			}
 			setCurrent(current + 1);
 			titleRefs && titleRefs.forEach((ref) => ref.current.startAnimation("up"));
+			backgroundRefs && backgroundRefs.forEach((ref) => ref.current.startAnimation("up"));
 		}
 
 		if (e.deltaY < 0) {
@@ -49,6 +50,7 @@ export default function Home() {
 			}
 			setCurrent(current - 1);
 			titleRefs && titleRefs.forEach((ref) => ref.current.startAnimation("down"));
+			backgroundRefs && backgroundRefs.forEach((ref) => ref.current.startAnimation("down"));
 		}
 
 		setTimeout(() => {
@@ -88,8 +90,8 @@ export default function Home() {
 								key={index}
 								dataSize={size}
 								dataIndex={index}
-								ref={titleRefs[index]}
 								dataCurrent={current}
+								ref={titleRefs[index]}
 							>
 								{title}
 							</Title>
@@ -102,6 +104,7 @@ export default function Home() {
 								dataSize={size}
 								dataIndex={index}
 								dataImage={image}
+								dataCurrent={current}
 								ref={backgroundRefs[index]}
 							/>
 						))}
