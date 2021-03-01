@@ -23,7 +23,7 @@ const Container = styled.div`
 
 export default function Home() {
 	const size = useWindowWidth();
-	const refs = useRefArray(data.length);
+	const titleRefs = useRefArray(data.length);
 	const [current, setCurrent] = useState<number>(0);
 	const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
@@ -38,7 +38,7 @@ export default function Home() {
 				return;
 			}
 			setCurrent(current + 1);
-			refs && refs.forEach((ref) => ref.current.startAnimation("up"));
+			titleRefs && titleRefs.forEach((ref) => ref.current.startAnimation("up"));
 		}
 
 		if (e.deltaY < 0) {
@@ -47,7 +47,7 @@ export default function Home() {
 				return;
 			}
 			setCurrent(current - 1);
-			refs && refs.forEach((ref) => ref.current.startAnimation("down"));
+			titleRefs && titleRefs.forEach((ref) => ref.current.startAnimation("down"));
 		}
 
 		setTimeout(() => {
@@ -87,7 +87,7 @@ export default function Home() {
 								key={index}
 								dataSize={size}
 								dataIndex={index}
-								ref={refs[index]}
+								ref={titleRefs[index]}
 								dataCurrent={current}
 							>
 								{title}

@@ -6,6 +6,7 @@ import React, {
 	ForwardRefRenderFunction,
 } from "react";
 import styled from "styled-components";
+import { RefHandle } from "../hooks/useRefArray";
 import TitleAnimation from "../animations/TitleAnimation";
 
 type TitleProps = {
@@ -17,10 +18,6 @@ type TitleProps = {
 
 type TitleContainerProps = Pick<TitleProps, "dataIndex" | "dataCurrent"> & {
 	translateX: number;
-};
-
-export type TitleRefHandles = {
-	startAnimation: (direction: "up" | "down") => void;
 };
 
 const TitleContainer = styled.div<TitleContainerProps>`
@@ -54,7 +51,7 @@ const Titletext = styled.h1`
 	padding-bottom: 1.5rem;
 `;
 
-const Title: ForwardRefRenderFunction<TitleRefHandles, TitleProps> = (
+const Title: ForwardRefRenderFunction<RefHandle, TitleProps> = (
 	{ dataIndex, dataSize, dataCurrent, children },
 	ref
 ) => {
