@@ -15,10 +15,11 @@ const BackgroundAnimation = (
 	let delayNumber: number;
 	let translateXNumber: number;
 	if (direction === "up") {
-    delayNumber =
-    current + 1 === index || current === index ? 0.035 : 0;
+		delayNumber = current + 1 === index || current === index ? 0.035 : 0;
 		translateXNumber =
-			current + 1 === index
+			current === 12 && index === 13
+				? 0
+				: current + 1 === index
 				? dataSize / 10
 				: current === index || current > index
 				? dataSize
@@ -26,9 +27,8 @@ const BackgroundAnimation = (
 		setTimeout(() => {
 			setState(translateXNumber);
 		}, 1000);
-	} else if (direction === 'down') {
-    delayNumber =
-    current + 1 === index || current === index ? 0.035 : 0;
+	} else if (direction === "down") {
+		delayNumber = current + 1 === index || current === index ? 0.035 : 0;
 		translateXNumber =
 			current - 1 === index
 				? dataSize / 10
@@ -38,11 +38,14 @@ const BackgroundAnimation = (
 		setTimeout(() => {
 			setState(translateXNumber);
 		}, 1000);
-  } else return new Error("wrong direction passed to Background Animation function");
+	} else
+		return new Error(
+			"wrong direction passed to Background Animation function"
+		);
 
 	gsap.to(element, {
 		duration: 1.2,
-    delay: delayNumber,
+		delay: delayNumber,
 		transform: `matrix(1, 0, 0, 1, ${translateXNumber}, 0)`,
 		ease: CustomEase.create(
 			"custom",
