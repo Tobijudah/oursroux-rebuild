@@ -28,7 +28,7 @@ const TitleAnimation = (
 		}, 1000);
 	} else if (direction === "down") {
 		delayNumber =
-			current - 1 === index ? 0.025 : index > current ? 0.05 : 0;
+			current - 1 === index ? 0.05 : index > current ? 0.025 : 0;
 		translateXNumber =
 			current === index
 				? translateX - dataSize * 0.9
@@ -43,7 +43,7 @@ const TitleAnimation = (
 	} else return new Error("wrong direction passed to Title Animation function");
 
 	gsap.to(element, {
-		duration: 0.85,
+		duration: 1,
 		delay: delayNumber,
 		transform: `matrix(1, 0, 0, 1, ${translateXNumber}, 0)`,
 		ease: CustomEase.create(
