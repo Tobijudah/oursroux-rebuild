@@ -24,6 +24,7 @@ const Container = styled.div`
 export default function Home() {
 	const size = useWindowWidth();
 	const titleRefs = useRefArray(data.length);
+	const backgroundRefs = useRefArray(data.length);
 	const [current, setCurrent] = useState<number>(0);
 	const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
@@ -101,6 +102,7 @@ export default function Home() {
 								dataSize={size}
 								dataIndex={index}
 								dataImage={image}
+								ref={backgroundRefs[index]}
 							/>
 						))}
 					</BackgroundsWrapper>

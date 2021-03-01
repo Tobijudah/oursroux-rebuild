@@ -1,5 +1,11 @@
-import React from "react";
+import React, {
+	useRef,
+	forwardRef,
+	useImperativeHandle,
+	ForwardRefRenderFunction,
+} from "react";
 import styled from "styled-components";
+import { RefHandle } from "../hooks/useRefArray";
 
 type BackgroundProps = {
 	dataSize: number;
@@ -42,16 +48,25 @@ const BackgroundImage = styled.div<BackgroundImageProps>`
 	background-position: center center;
 `;
 
-const Background: React.FC<BackgroundProps> = ({
-	dataSize,
-	dataIndex,
-	dataImage,
-}) => {
+const Background: ForwardRefRenderFunction<RefHandle, BackgroundProps> = (
+	{ dataSize, dataIndex, dataImage },
+	ref
+) => {
+	const backgroundRef = useRef<HTMLDivElement>(null);
+
+	useImperativeHandle(ref, () => ({
+		startAnimation: () => {},
+	}));
+
 	return (
-		<BackgroundContainer dataSize={dataSize} dataIndex={dataIndex}>
+		<BackgroundContainer
+			ref={backgroundRef}
+			dataSize={dataSize}
+			dataIndex={dataIndex}
+		>
 			<BackgroundImage dataImage={dataImage} />
 		</BackgroundContainer>
 	);
 };
 
-export default Background;
+export default forwardRef(Background);
