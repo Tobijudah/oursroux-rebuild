@@ -4,11 +4,13 @@ import { data } from "./api/data";
 import styled from "styled-components";
 import Title from "../components/Title";
 import Button from "../components/Button";
+import TextDiv from "../components/TextDiv";
 import useRefArray from "../hooks/useRefArray";
 import Background from "../components/Background";
 import ArrowCircle from "../components/ArrowCircle";
 import useWindowWidth from "../hooks/useWindowWidth";
 import TitlesWrapper from "../components/TitlesWrapper";
+import TextDivsWrapper from "../components/TextDivsWrapper";
 import BackgroundsWrapper from "../components/BackgroundsWrapper";
 
 const Container = styled.div`
@@ -18,6 +20,7 @@ const Container = styled.div`
 	align-items: center;
 	justify-content: flex-end;
 	flex-direction: row-reverse;
+	background-color: #fff;
 	overflow: hidden;
 `;
 
@@ -39,8 +42,12 @@ export default function Home() {
 				return;
 			}
 			setCurrent(current + 1);
-			titleRefs && titleRefs.forEach((ref) => ref.current.startAnimation("up"));
-			backgroundRefs && backgroundRefs.forEach((ref) => ref.current.startAnimation("up"));
+			titleRefs &&
+				titleRefs.forEach((ref) => ref.current.startAnimation("up"));
+			backgroundRefs &&
+				backgroundRefs.forEach((ref) =>
+					ref.current.startAnimation("up")
+				);
 		}
 
 		if (e.deltaY < 0) {
@@ -49,8 +56,12 @@ export default function Home() {
 				return;
 			}
 			setCurrent(current - 1);
-			titleRefs && titleRefs.forEach((ref) => ref.current.startAnimation("down"));
-			backgroundRefs && backgroundRefs.forEach((ref) => ref.current.startAnimation("down"));
+			titleRefs &&
+				titleRefs.forEach((ref) => ref.current.startAnimation("down"));
+			backgroundRefs &&
+				backgroundRefs.forEach((ref) =>
+					ref.current.startAnimation("down")
+				);
 		}
 
 		setTimeout(() => {
@@ -97,6 +108,11 @@ export default function Home() {
 							</Title>
 						))}
 					</TitlesWrapper>
+					<TextDivsWrapper>
+						{data.map(({ color, index }) => (
+							<TextDiv dataColor={color} />
+						))}
+					</TextDivsWrapper>
 					<BackgroundsWrapper>
 						{data.map(({ index, image }) => (
 							<Background
