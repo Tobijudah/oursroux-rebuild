@@ -11,6 +11,7 @@ import ArrowCircle from "../components/ArrowCircle";
 import useWindowWidth from "../hooks/useWindowWidth";
 import TitlesWrapper from "../components/TitlesWrapper";
 import TextDivsWrapper from "../components/TextDivsWrapper";
+import TextDivAnimation from "../animations/TextDivsAnimation";
 import BackgroundsWrapper from "../components/BackgroundsWrapper";
 
 const Container = styled.div`
@@ -26,9 +27,10 @@ const Container = styled.div`
 
 export default function Home() {
 	const size = useWindowWidth();
-	const titleRefs = useRefArray(data.length);
-	const backgroundRefs = useRefArray(data.length);
 	const [current, setCurrent] = useState<number>(0);
+	const titleRefs = useRefArray(data.length, "handle");
+	const textDivRefs = useRefArray(data.length, "normal");
+	const backgroundRefs = useRefArray(data.length, "handle");
 	const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
 	const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
@@ -44,6 +46,15 @@ export default function Home() {
 			setCurrent(current + 1);
 			titleRefs &&
 				titleRefs.forEach((ref) => ref.current.startAnimation("up"));
+			textDivRefs &&
+				textDivRefs.forEach((ref) =>
+					TextDivAnimation(
+						"up",
+						ref.current,
+						current,
+						ref.current.tabIndex
+					)
+				);
 			backgroundRefs &&
 				backgroundRefs.forEach((ref) =>
 					ref.current.startAnimation("up")
@@ -58,6 +69,15 @@ export default function Home() {
 			setCurrent(current - 1);
 			titleRefs &&
 				titleRefs.forEach((ref) => ref.current.startAnimation("down"));
+			textDivRefs &&
+				textDivRefs.forEach((ref) =>
+					TextDivAnimation(
+						"down",
+						ref.current,
+						current,
+						ref.current.tabIndex
+					)
+				);
 			backgroundRefs &&
 				backgroundRefs.forEach((ref) =>
 					ref.current.startAnimation("down")
@@ -108,9 +128,14 @@ export default function Home() {
 							</Title>
 						))}
 					</TitlesWrapper>
-					<TextDivsWrapper>
+					<TextDivsWrapper dataSize={size}>
 						{data.map(({ color, index }) => (
-							<TextDiv dataColor={color} />
+							<TextDiv
+								key={index}
+								tabIndex={index}
+								dataColor={color}
+								ref={textDivRefs[index]}
+							/>
 						))}
 					</TextDivsWrapper>
 					<BackgroundsWrapper>
