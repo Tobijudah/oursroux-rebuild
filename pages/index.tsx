@@ -13,6 +13,7 @@ import ArrowCircle from "../components/ArrowCircle";
 import TextWrapper from "../components/TextWrapper";
 import useWindowWidth from "../hooks/useWindowWidth";
 import TitlesWrapper from "../components/TitlesWrapper";
+import TextAnimation from "../animations/TextAnimation";
 import TextDivsWrapper from "../components/TextDivsWrapper";
 import TextDivAnimation from "../animations/TextDivsAnimation";
 import BackgroundsWrapper from "../components/BackgroundsWrapper";
@@ -31,7 +32,9 @@ const Container = styled.div`
 export default function Home() {
 	const size = useWindowWidth();
 	const [current, setCurrent] = useState<number>(0);
+	const textRefs = useRefArray(data.length, "normal");
 	const titleRefs = useRefArray(data.length, "handle");
+	const numberRefs = useRefArray(data.length, "normal");
 	const textDivRefs = useRefArray(data.length, "normal");
 	const backgroundRefs = useRefArray(data.length, "handle");
 	const [isScrolling, setIsScrolling] = useState<boolean>(false);
@@ -49,6 +52,24 @@ export default function Home() {
 			setCurrent(current + 1);
 			titleRefs &&
 				titleRefs.forEach((ref) => ref.current.startAnimation("up"));
+			textRefs &&
+				textRefs.forEach((ref) =>
+					TextAnimation(
+						"up",
+						ref.current,
+						current,
+						ref.current.tabIndex
+					)
+				);
+			numberRefs &&
+				numberRefs.forEach((ref) =>
+					TextAnimation(
+						"up",
+						ref.current,
+						current,
+						ref.current.tabIndex
+					)
+				);
 			textDivRefs &&
 				textDivRefs.forEach((ref) =>
 					TextDivAnimation(
@@ -72,6 +93,24 @@ export default function Home() {
 			setCurrent(current - 1);
 			titleRefs &&
 				titleRefs.forEach((ref) => ref.current.startAnimation("down"));
+			textRefs &&
+				textRefs.forEach((ref) =>
+					TextAnimation(
+						"down",
+						ref.current,
+						current,
+						ref.current.tabIndex
+					)
+				);
+			numberRefs &&
+				numberRefs.forEach((ref) =>
+					TextAnimation(
+						"down",
+						ref.current,
+						current,
+						ref.current.tabIndex
+					)
+				);
 			textDivRefs &&
 				textDivRefs.forEach((ref) =>
 					TextDivAnimation(
@@ -142,10 +181,15 @@ export default function Home() {
 						))}
 						<TextWrapper>
 							{data.map(({ id, index }) => (
-								<NumberIndex>{id}</NumberIndex>
+								<NumberIndex
+									ref={numberRefs[index]}
+									tabIndex={index}
+								>
+									{id}
+								</NumberIndex>
 							))}
-							{data.map(({ id, text }) => (
-								<Text>
+							{data.map(({ text, index }) => (
+								<Text ref={textRefs[index]} tabIndex={index}>
 									<p>{text}</p>
 								</Text>
 							))}
