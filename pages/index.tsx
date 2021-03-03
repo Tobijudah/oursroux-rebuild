@@ -1,13 +1,16 @@
 import Head from "next/head";
-import { useState } from "react";
 import { data } from "./api/data";
+import Text from "../components/Text";
 import styled from "styled-components";
+import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import TextDiv from "../components/TextDiv";
 import useRefArray from "../hooks/useRefArray";
+import NumberIndex from "../components/Number";
 import Background from "../components/Background";
 import ArrowCircle from "../components/ArrowCircle";
+import TextWrapper from "../components/TextWrapper";
 import useWindowWidth from "../hooks/useWindowWidth";
 import TitlesWrapper from "../components/TitlesWrapper";
 import TextDivsWrapper from "../components/TextDivsWrapper";
@@ -137,6 +140,16 @@ export default function Home() {
 								ref={textDivRefs[index]}
 							/>
 						))}
+						<TextWrapper>
+							{data.map(({ id, index }) => (
+								<NumberIndex>{id}</NumberIndex>
+							))}
+							{data.map(({ id, text }) => (
+								<Text>
+									<p>{text}</p>
+								</Text>
+							))}
+						</TextWrapper>
 					</TextDivsWrapper>
 					<BackgroundsWrapper>
 						{data.map(({ index, image }) => (
