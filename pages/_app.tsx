@@ -1,5 +1,9 @@
 import type { AppProps } from "next/app";
-import { createGlobalStyle, DefaultTheme, GlobalStyleComponent } from "styled-components";
+import {
+	DefaultTheme,
+	createGlobalStyle,
+	GlobalStyleComponent,
+} from "styled-components";
 
 const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 
@@ -31,8 +35,9 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 		font-family: 'Cormorant Garamond', serif;
 	}
 
-	p {
+	a, p {
 		color: #000;
+		text-decoration: none;
 	}
 
 	@media (min-width: 769px) and (max-width: 1024px) {
@@ -66,11 +71,11 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 
 function MyApp({ Component, pageProps }: AppProps) {
 	return (
-    <>
-    <GlobalStyle />
-    <Component {...pageProps} />
-    </>
-  );
+		<>
+			<GlobalStyle />
+			<Component {...pageProps} />
+		</>
+	);
 }
 
 export default MyApp;

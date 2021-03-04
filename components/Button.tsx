@@ -76,6 +76,10 @@ const Button = styled.a<ButtonProps>`
 
 	}
 
+	@media (max-width: 650px) {
+		display: none;
+	}
+
 `;
 
 export default Button;

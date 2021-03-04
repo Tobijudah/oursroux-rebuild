@@ -212,7 +212,7 @@ export default function Home() {
 			<Container id="mobile">
 				<NumberIndex>No mobile boss.<br/>Open your laptop</NumberIndex>
 				<Text>
-					<a>https://mobile.oursroux.com</a>
+					<a target="_blank" rel="noopener noreferrer" href='http://mobile.oursroux.com'>https://mobile.oursroux.com/</a>
 				</Text>
 			</Container>
 		</div>
