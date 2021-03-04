@@ -3,6 +3,11 @@ import { createGlobalStyle, DefaultTheme, GlobalStyleComponent } from "styled-co
 
 const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 
+	#mobile {
+		display: none;
+		color: #000;
+	}
+
 	* {
 		margin: 0;
 		padding: 0;
@@ -45,6 +50,15 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 	@media (max-width: 768px) {
 		body {
 			font-size: 80%;
+		}
+	}
+
+	@media (max-width: 650px) {
+		#desktop {
+			display: none;
+		}
+		#mobile {
+			display: block;
 		}
 	}
 

@@ -155,7 +155,7 @@ export default function Home() {
 			<Button right>About</Button>
 
 			{typeof size === "number" && (
-				<Container onWheel={(e) => handleScroll(e)}>
+				<Container id="desktop" onWheel={(e) => handleScroll(e)}>
 					<ArrowCircle Color={data[current].color} />
 					<TitlesWrapper>
 						{data.map(({ index, title }) => (
@@ -209,6 +209,12 @@ export default function Home() {
 					</BackgroundsWrapper>
 				</Container>
 			)}
+			<Container id="mobile">
+				<NumberIndex>No mobile boss.<br/>Open your laptop</NumberIndex>
+				<Text>
+					<a>https://mobile.oursroux.com</a>
+				</Text>
+			</Container>
 		</div>
 	);
 }
