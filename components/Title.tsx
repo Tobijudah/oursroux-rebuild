@@ -1,11 +1,13 @@
 import React, {
 	useRef,
-	useState,
+	useEffect,
 	forwardRef,
 	useImperativeHandle,
 	ForwardRefRenderFunction,
 } from "react";
+import gsap from "gsap";
 import styled from "styled-components";
+import useStateRef from "../hooks/useStateRef";
 import { RefHandle } from "../hooks/useRefArray";
 import TitleAnimation from "../animations/TitleAnimation";
 
@@ -30,7 +32,6 @@ const TitleContainer = styled.div<TitleContainerProps>`
 	width: 100%;
 	text-align: right;
 	margin: auto;
-	transform: ${({ translateX }) => `matrix(1, 0, 0, 1, ${translateX}, 0)`};
 	display: ${({ dataIndex, dataCurrent }) =>
 		dataCurrent - dataIndex > 1 ? "none" : "table"};
 `;
@@ -44,8 +45,8 @@ const TitleTextContainer = styled.div`
 const Titletext = styled.h1`
 	position: relative;
 	display: inline-block;
-	font-size: 15.15vw;
-	line-height: 16.15vw;
+	font-size: 15.5vw;
+	line-height: 16.5vw;
 	font-weight: 500;
 	transform: matrix(1, 0, 0, 1.08, 0, 21.7333);
 	padding-bottom: 1.5rem;
@@ -56,9 +57,20 @@ const Title: ForwardRefRenderFunction<RefHandle, TitleProps> = (
 	ref
 ) => {
 	const titleRef = useRef<HTMLDivElement>(null);
-	const [translateX, setTranslateX] = useState(
-		dataIndex === 0 ? -(dataSize * 0.05) : -(dataSize * dataIndex * 0.95)
-	);
+	const [stateRef, translateX, setTranslateX] = useStateRef(0)
+
+	useEffect(() => {
+		setTranslateX(
+			dataCurrent > dataIndex
+				? dataSize * 0.9
+				: dataCurrent === dataIndex
+				? -(dataSize * 0.05)
+				: -dataSize * 0.95 * (dataIndex - dataCurrent)
+		)
+		gsap.set(titleRef.current, {
+			transform: `matrix(1, 0, 0, 1, ${stateRef.current}, 0)`
+		})
+	}, [dataSize])
 
 	useImperativeHandle(ref, () => ({
 		startAnimation: (direction) => {

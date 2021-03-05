@@ -1,11 +1,14 @@
 import React, {
 	useRef,
 	useState,
+	useEffect,
 	forwardRef,
 	useImperativeHandle,
 	ForwardRefRenderFunction,
 } from "react";
+import gsap from "gsap";
 import styled from "styled-components";
+import useStateRef from "../hooks/useStateRef";
 import { RefHandle } from "../hooks/useRefArray";
 import BackgroundAnimation from "../animations/BackgroundAnimation";
 
@@ -32,7 +35,6 @@ const BackgroundContainer = styled.div<BackgroundContainerProps>`
 	right: 0;
 	bottom: 0;
 	height: 100%;
-	transform: ${(p) => `matrix(1, 0, 0, 1, ${p.translateX}, 0)`};
 	display: ${(p) =>
 		p.dataCurrent === p.dataIndex ||
 		p.dataCurrent - p.dataIndex === -1 ||
@@ -69,11 +71,22 @@ const Background: ForwardRefRenderFunction<RefHandle, BackgroundProps> = (
 	ref
 ) => {
 	const backgroundRef = useRef<HTMLDivElement>(null);
-	const [translateX, setTranslateX] = useState(
-		dataIndex === 0
-			? dataSize / 10
-			: Math.round(-0.6 * dataIndex * dataSize)
-	);
+	const [stateRef, translateX, setTranslateX] = useStateRef(0);
+
+	useEffect(() => {
+		setTranslateX(
+			dataCurrent === 12 && dataIndex === 13
+				? 0
+				: dataCurrent === dataIndex
+				? dataSize / 10
+				: dataCurrent > dataIndex
+				? dataSize
+				: -dataSize * 0.6 * (dataIndex - dataCurrent)
+		)
+		gsap.set(backgroundRef.current, {
+			transform: `matrix(1, 0, 0, 1, ${stateRef.current}, 0)`
+		})
+	}, [dataSize])
 
 	useImperativeHandle(ref, () => ({
 		startAnimation: (direction) => {
