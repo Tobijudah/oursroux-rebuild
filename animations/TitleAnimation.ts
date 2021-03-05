@@ -2,6 +2,9 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/dist/CustomEase.min.js";
 
 gsap.registerPlugin(CustomEase);
+gsap.config({
+  force3D: true,
+});
 
 const TitleAnimation = (
 	direction: "up" | "down",

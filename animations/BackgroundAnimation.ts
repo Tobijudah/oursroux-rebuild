@@ -2,6 +2,9 @@ import gsap from "gsap";
 import { CustomEase } from "gsap/dist/CustomEase.min.js";
 
 gsap.registerPlugin(CustomEase);
+gsap.config({
+  force3D: true,
+});
 
 const BackgroundAnimation = (
 	direction: "up" | "down",
@@ -32,7 +35,9 @@ const BackgroundAnimation = (
 		translateXNumber =
 			current - 1 === index
 				? dataSize / 10
-				: current === index || index > current
+				: current === index
+				? translateX - 0.7 * dataSize
+				: index > current
 				? translateX - 0.6 * dataSize
 				: dataSize;
 		setTimeout(() => {

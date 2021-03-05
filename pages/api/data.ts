@@ -19,7 +19,7 @@ export const data: dataType[] = [
   {
     id: '02',
     index: 1,
-    title: 'Good moods',
+    title: 'Good Moods',
     text: 'Goodmoods is a unique interface that reinvents the concept of mood board to deliver decoration trends and curated design inspiration.',
     color: '#eaaf96',
     image: 'goodmoods'
