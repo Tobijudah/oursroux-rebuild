@@ -3,7 +3,7 @@ import { CustomEase } from "gsap/dist/CustomEase.min.js";
 
 gsap.registerPlugin(CustomEase);
 gsap.config({
-  force3D: true,
+	force3D: true,
 });
 
 const BackgroundAnimation = (
@@ -18,11 +18,11 @@ const BackgroundAnimation = (
 	let delayNumber: number;
 	let translateXNumber: number;
 	if (direction === "up") {
-		delayNumber = current + 1 === index || current === index ? 0.035 : 0;
+		delayNumber = current === index || current - 1 === index ? 0.035 : 0;
 		translateXNumber =
 			current === 12 && index === 13
 				? 0
-				: current + 1 === index
+				: current === index
 				? dataSize / 10
 				: current === index || current > index
 				? dataSize
@@ -31,11 +31,11 @@ const BackgroundAnimation = (
 			setState(translateXNumber);
 		}, 1000);
 	} else if (direction === "down") {
-		delayNumber = current + 1 === index || current === index ? 0.035 : 0;
+		delayNumber = current === index || current - 1 === index ? 0.035 : 0;
 		translateXNumber =
-			current - 1 === index
+			current === index
 				? dataSize / 10
-				: current === index
+				: current + 1 === index
 				? translateX - 0.7 * dataSize
 				: index > current
 				? translateX - 0.6 * dataSize
@@ -43,10 +43,7 @@ const BackgroundAnimation = (
 		setTimeout(() => {
 			setState(translateXNumber);
 		}, 1000);
-	} else
-		return new Error(
-			"wrong direction passed to Background Animation function"
-		);
+	} else console.error("wrong direction passed to Title Animation function");
 
 	gsap.to(element, {
 		duration: 1.2,

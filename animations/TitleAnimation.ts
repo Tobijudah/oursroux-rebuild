@@ -3,7 +3,7 @@ import { CustomEase } from "gsap/dist/CustomEase.min.js";
 
 gsap.registerPlugin(CustomEase);
 gsap.config({
-  force3D: true,
+	force3D: true,
 });
 
 const TitleAnimation = (
@@ -18,12 +18,13 @@ const TitleAnimation = (
 	let delayNumber: number;
 	let translateXNumber: number;
 	if (direction === "up") {
-		delayNumber =
-			current + 1 === index ? 0.065 : current > index ? 0.15 : 0;
+		delayNumber = current === index ? 0.065 : 0;
 		translateXNumber =
-			current > index
+			current - 1 === index
+				? translateX + dataSize * 0.95
+				: current > index
 				? translateX
-				: current + 1 === index
+				: current === index
 				? -(dataSize * 0.05)
 				: translateX + dataSize * 0.95;
 		setTimeout(() => {
@@ -31,19 +32,19 @@ const TitleAnimation = (
 		}, 1000);
 	} else if (direction === "down") {
 		delayNumber =
-			current - 1 === index ? 0.05 : index > current ? 0.025 : 0;
+			current === index ? 0.05 : index > current + 1 ? 0.025 : 0;
 		translateXNumber =
-			current === index
+			current + 1 === index
 				? translateX - dataSize * 0.9
 				: index > current
 				? translateX - dataSize * 0.95
-				: current - 1 === index
+				: current === index
 				? -(dataSize * 0.05)
 				: translateX;
 		setTimeout(() => {
 			setState(translateXNumber);
 		}, 1000);
-	} else return new Error("wrong direction passed to Title Animation function");
+	} else console.error("wrong direction passed to Title Animation function");
 
 	gsap.to(element, {
 		duration: 1,
