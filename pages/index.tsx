@@ -40,7 +40,7 @@ export default function Home() {
 	const backgroundRefs = useRefArray(data.length, "handle");
 	const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
-	const handleScroll = (e: React.WheelEvent<HTMLDivElement>) => {
+	const handleScroll = async (e: React.WheelEvent<HTMLDivElement>) => {
 		if (isScrolling) return;
 		if (e.deltaY === -0) return;
 		setIsScrolling(true);
@@ -50,7 +50,7 @@ export default function Home() {
 				setIsScrolling(false);
 				return;
 			}
-			setCurrent(current + 1);
+			await setCurrent(current + 1);
 			titleRefs &&
 				titleRefs.forEach((ref) => ref.current.startAnimation("up"));
 			textRefs &&
@@ -86,12 +86,12 @@ export default function Home() {
 				);
 		}
 
-		if (e.deltaY < 0) {
+		else if (e.deltaY < 0) {
 			if (current === 0) {
 				setIsScrolling(false);
 				return;
 			}
-			setCurrent(current - 1);
+			await setCurrent(current - 1);
 			titleRefs &&
 				titleRefs.forEach((ref) => ref.current.startAnimation("down"));
 			textRefs &&
