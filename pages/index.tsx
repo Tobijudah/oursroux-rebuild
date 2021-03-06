@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import TextDiv from "../components/TextDiv";
+import { useSwipeable } from "react-swipeable";
 import useRefArray from "../hooks/useRefArray";
 import NumberIndex from "../components/Number";
 import Background from "../components/Background";
@@ -131,6 +132,102 @@ export default function Home() {
 		}, 1500);
 	};
 
+	const handlers = useSwipeable({
+    onSwiped: (e) => {
+			if (isScrolling) return;
+			if (e.deltaY === -0) return;
+			setIsScrolling(true);
+
+			if (e.dir === 'Up') {
+				if (current === 13) {
+					setIsScrolling(false);
+					return;
+				}
+				setCurrent(current + 1);
+				titleRefs &&
+					titleRefs.forEach((ref) => ref.current.startAnimation("up"));
+				textRefs &&
+					textRefs.forEach((ref) =>
+						TextAnimation(
+							"up",
+							ref.current,
+							current,
+							ref.current.tabIndex
+						)
+					);
+				numberRefs &&
+					numberRefs.forEach((ref) =>
+						TextAnimation(
+							"up",
+							ref.current,
+							current,
+							ref.current.tabIndex
+						)
+					);
+				textDivRefs &&
+					textDivRefs.forEach((ref) =>
+						TextDivAnimation(
+							"up",
+							ref.current,
+							current,
+							ref.current.tabIndex
+						)
+					);
+				backgroundRefs &&
+					backgroundRefs.forEach((ref) =>
+						ref.current.startAnimation("up")
+					);
+			}
+
+			if (e.dir === 'Down') {
+				if (current === 0) {
+					setIsScrolling(false);
+					return;
+				}
+				setCurrent(current - 1);
+				titleRefs &&
+					titleRefs.forEach((ref) => ref.current.startAnimation("down"));
+				textRefs &&
+					textRefs.forEach((ref) =>
+						TextAnimation(
+							"down",
+							ref.current,
+							current,
+							ref.current.tabIndex
+						)
+					);
+				numberRefs &&
+					numberRefs.forEach((ref) =>
+						TextAnimation(
+							"down",
+							ref.current,
+							current,
+							ref.current.tabIndex
+						)
+					);
+				textDivRefs &&
+					textDivRefs.forEach((ref) =>
+						TextDivAnimation(
+							"down",
+							ref.current,
+							current,
+							ref.current.tabIndex
+						)
+					);
+				backgroundRefs &&
+					backgroundRefs.forEach((ref) =>
+						ref.current.startAnimation("down")
+					);
+			}
+
+			setTimeout(() => {
+				setIsScrolling(false);
+			}, 1500);
+		},
+    preventDefaultTouchmoveEvent: true,
+    trackMouse: true
+  });
+
 	return (
 		<div>
 			<Head>
@@ -155,7 +252,7 @@ export default function Home() {
 			<Button right>About</Button>
 
 			{typeof size === "number" && (
-				<Container id="desktop" onWheel={(e) => handleScroll(e)}>
+				<Container id="desktop" {...handlers} onWheel={(e) => handleScroll(e)}>
 					<ArrowCircle Color={data[current].color} />
 					<TitlesWrapper>
 						{data.map(({ index, title }) => (
@@ -181,7 +278,7 @@ export default function Home() {
 						))}
 						<TextWrapper>
 							{data.map(({ id, index }) => (
-								<NumberIndex
+								<NumberIndex key={index}
 									ref={numberRefs[index]}
 									tabIndex={index}
 								>
@@ -189,7 +286,7 @@ export default function Home() {
 								</NumberIndex>
 							))}
 							{data.map(({ text, index }) => (
-								<Text ref={textRefs[index]} tabIndex={index}>
+								<Text key={index} ref={textRefs[index]} tabIndex={index}>
 									<p>{text}</p>
 								</Text>
 							))}
