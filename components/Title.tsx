@@ -22,6 +22,8 @@ type TitleContainerProps = Pick<TitleProps, "dataIndex" | "dataCurrent"> & {
 	translateX: number;
 };
 
+type TitleTextProps = Pick<TitleProps, "dataSize">;
+
 const TitleContainer = styled.div<TitleContainerProps>`
 	position: absolute;
 	top: 0;
@@ -42,14 +44,16 @@ const TitleTextContainer = styled.div`
 	vertical-align: middle;
 `;
 
-const Titletext = styled.h1`
+const Titletext = styled.h1<TitleTextProps>`
+	cursor: pointer;
 	position: relative;
 	display: inline-block;
-	font-size: 15.5vw;
-	line-height: 16.5vw;
-	font-weight: 500;
-	transform: matrix(1, 0, 0, 1.08, 0, 21.7333);
-	padding-bottom: 1.5rem;
+	color: #fff;
+	font-size: 16vw;
+	font-family: 'Potrait', serif;
+	font-weight: normal;
+	line-height: 17vw;
+	transform: ${p => `matrix(1, 0, 0, 1, 0, ${p.dataSize * 0.017})`};
 `;
 
 const Title: ForwardRefRenderFunction<RefHandle, TitleProps> = (
@@ -57,7 +61,7 @@ const Title: ForwardRefRenderFunction<RefHandle, TitleProps> = (
 	ref
 ) => {
 	const titleRef = useRef<HTMLDivElement>(null);
-	const [stateRef, translateX, setTranslateX] = useStateRef(0)
+	const [stateRef, translateX, setTranslateX] = useStateRef(0);
 
 	useEffect(() => {
 		setTranslateX(
@@ -66,11 +70,11 @@ const Title: ForwardRefRenderFunction<RefHandle, TitleProps> = (
 				: dataCurrent === dataIndex
 				? -(dataSize * 0.05)
 				: -dataSize * 0.95 * (dataIndex - dataCurrent)
-		)
+		);
 		gsap.set(titleRef.current, {
-			transform: `matrix(1, 0, 0, 1, ${stateRef.current}, 0)`
-		})
-	}, [dataSize])
+			transform: `matrix(1, 0, 0, 1, ${stateRef.current}, 0)`,
+		});
+	}, [dataSize]);
 
 	useImperativeHandle(ref, () => ({
 		startAnimation: (direction) => {
@@ -94,7 +98,7 @@ const Title: ForwardRefRenderFunction<RefHandle, TitleProps> = (
 			dataCurrent={dataCurrent}
 		>
 			<TitleTextContainer>
-				<Titletext>{children}</Titletext>
+				<Titletext dataSize={dataSize}>{children}</Titletext>
 			</TitleTextContainer>
 		</TitleContainer>
 	);

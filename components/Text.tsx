@@ -5,9 +5,10 @@ const Text = styled.div`
 	bottom: 0;
 	left: 0;
 	right: 0;
-	font-size: 0.95em;
-	font-weight: 400;
-	line-height: 1.75em;
+	color: #000;
+	font-size: 1em;
+	font-family: 'ApercuLight', sans-serif;
+	line-height: 1.625em;
 	padding: 15% 13%;
 	box-sizing: border-box;
 

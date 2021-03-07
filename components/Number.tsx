@@ -6,7 +6,8 @@ const NumberIndex = styled.h2`
 	left: 0;
 	color: #000;
 	font-size: 1.5625em;
-	letter-spacing: -1.5px;
+	font-family: 'ApercuMedium', sans-serif;
+	font-weight: normal;
 	padding: 45% 13%;
 	margin: 0;
 

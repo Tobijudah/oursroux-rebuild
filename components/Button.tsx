@@ -13,8 +13,9 @@ const Button = styled.a<ButtonProps>`
 	right: ${(p) => (p.right ? "5%" : "initial")};
 	display: block;
 	color: #fff;
-	font-size: 0.9em;
-	font-weight: 600;
+	font-size: 1em;
+	font-family: 'ApercuMedium', sans-serif;
+	text-decoration: none;
 	transition: opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1),
 		transform .6s cubic-bezier(.19,1,.22,1);
 	z-index: 100;
