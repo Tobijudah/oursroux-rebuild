@@ -1,3 +1,4 @@
+import "../fonts.css";
 import type { AppProps } from "next/app";
 import {
 	DefaultTheme,
@@ -6,23 +7,6 @@ import {
 } from "styled-components";
 
 const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
-
-	@font-face {
-		font-family: 'Potrait';
-		src: url('fonts/Portrait-Light.woff') format('woff');
-	}
-
-	@font-face {
-		font-family: 'ApercuLight';
-		src: local('ApercuLight'),
-		url('fonts/ApercuLight.woff') format('woff');
-	}
-
-	@font-face {
-		font-family: 'ApercuMedium';
-		src: local('ApercuMedium'),
-		url('fonts/ApercuMedium.woff') format('woff');
-	}
 
 	#mobile {
 		display: none;
