@@ -247,6 +247,22 @@ export default function Home() {
 					rel="shortcut icon"
 				/>
 			</Head>
+			<style jsx>{`
+				@font-face {
+					font-family: 'Potrait';
+					src: url('fonts/Portrait-Light.woff') format('woff');
+				}
+
+				@font-face {
+					font-family: 'ApercuLight';
+					src: url('fonts/ApercuLight.woff') format('woff');
+				}
+
+				@font-face {
+					font-family: 'ApercuMedium';
+					src: url('fonts/ApercuMedium.woff') format('woff');
+				}
+			`}</style>
 
 			<Button left>All projects</Button>
 			<Button right>About</Button>
