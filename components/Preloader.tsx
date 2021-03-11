@@ -79,13 +79,13 @@ const Preloader: React.FC = () => {
 			onStart: updateNumber,
 		})
 		.to(whiteTextRef.current, {
-			duration: 0,
-			opacity: 0,
-		}, "-=0.25")
+				duration: 0,
+				opacity: 0,
+		}, "-=0.25"	)
 		.to(blackTextRef.current, {
 			duration: 0,
 			opacity: 1,
-		}, "-=0.25")
+		}, 	"-=0.25")
 		.to(blackTextRef.current, {
 			delay: 1.5,
 			duration: 0.25,
