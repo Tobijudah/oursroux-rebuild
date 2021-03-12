@@ -20,7 +20,7 @@ const BackgroundAnimation = (
 	if (direction === "up") {
 		delayNumber = current === index || current - 1 === index ? 0.035 : 0;
 		translateXNumber =
-			current === 12 && index === 13
+			current === 13 && index === 13
 				? 0
 				: current === index
 				? dataSize / 10
@@ -33,7 +33,9 @@ const BackgroundAnimation = (
 	} else if (direction === "down") {
 		delayNumber = current === index || current - 1 === index ? 0.035 : 0;
 		translateXNumber =
-			current === index
+			current === 12 && index === 13
+				? translateX - 0.6 * dataSize
+				: current === index
 				? dataSize / 10
 				: current + 1 === index
 				? translateX - 0.7 * dataSize
