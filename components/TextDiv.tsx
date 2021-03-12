@@ -20,7 +20,7 @@ const TextDiv = styled.div<TextDivProps>`
 
 	&:first-of-type {
 		z-index: 2;
-		transform: matrix(1, 0 0, 1, 0, 0);
+		transform: matrix(1, 0, 0, 1, 0, 0);
 	}
 
 	&:not(:first-of-type) {
