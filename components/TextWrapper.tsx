@@ -7,6 +7,7 @@ const TextWrapper = styled.section`
 	bottom: 0;
 	width: 80%;
 	height: 100%;
+	opacity: 0;
 	z-index: 3;
 `;
 

@@ -7,12 +7,12 @@ type ArrowProps = {
 }
 
 type CircleProps = {
-	Color: string;
+	dataColor: string;
 }
 
 const Circle = styled.a<CircleProps>`
 	cursor: pointer;
-	background: ${p => p.Color};
+	background: ${p => p.dataColor};
 	position: fixed;
 	bottom: 10%;
 	right: 5%;
@@ -42,9 +42,9 @@ const Arrow = styled.svg<ArrowProps>`
 	}
 `
 
-export const ArrowCircle: FC<CircleProps> = ({ Color }) => {
+export const ArrowCircle = React.forwardRef<HTMLAnchorElement, CircleProps>(({ dataColor }, ref) => {
 	return (
-		<Circle Color={Color}>
+		<Circle ref={ref} dataColor={dataColor}>
 			<Arrow hover viewBox="0 0 56 56" xmlSpace="preserve">
 				<polygon points="31.3,26.8 23.5,19 22.8,19.7 30.6,27.5 22.8,35.3 23.5,36 31.3,28.2 32,27.5"></polygon>
 			</Arrow>
@@ -53,6 +53,6 @@ export const ArrowCircle: FC<CircleProps> = ({ Color }) => {
 			</Arrow>
 		</Circle>
 		);
-};
+});
 
 export default ArrowCircle;

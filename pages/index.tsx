@@ -2,19 +2,21 @@ import Head from "next/head";
 import { data } from "./api/data";
 import Text from "../components/Text";
 import styled from "styled-components";
-import React, { useState } from "react";
 import Title from "../components/Title";
 import Button from "../components/Button";
 import TextDiv from "../components/TextDiv";
 import { useSwipeable } from "react-swipeable";
 import useRefArray from "../hooks/useRefArray";
 import NumberIndex from "../components/Number";
+import React, { useRef, useState } from "react";
+import Preloader from "../components/Preloader";
 import Background from "../components/Background";
 import ArrowCircle from "../components/ArrowCircle";
 import TextWrapper from "../components/TextWrapper";
 import useWindowWidth from "../hooks/useWindowWidth";
 import TitlesWrapper from "../components/TitlesWrapper";
 import TextAnimation from "../animations/TextAnimation";
+import IntroAnimation from '../animations/IntroAnimation';
 import TextDivsWrapper from "../components/TextDivsWrapper";
 import TextDivAnimation from "../animations/TextDivsAnimation";
 import BackgroundsWrapper from "../components/BackgroundsWrapper";
@@ -32,6 +34,11 @@ const Container = styled.div`
 
 export default function Home() {
 	const size = useWindowWidth();
+	const arrowCircleRef = useRef(null);
+	const textWrapperRef = useRef(null);
+	const titlesWrapperRef = useRef(null);
+	const textDivsWrapperRef = useRef(null);
+	const backgroundsWrapperRef = useRef(null);
 	const [current, setCurrent] = useState<number>(0);
 	const textRefs = useRefArray(data.length, "normal");
 	const titleRefs = useRefArray(data.length, "handle");
@@ -228,6 +235,16 @@ export default function Home() {
     trackMouse: true
   });
 
+	React.useEffect(() => {
+		IntroAnimation(
+			arrowCircleRef.current,
+			textWrapperRef.current,
+			titlesWrapperRef.current,
+			textDivsWrapperRef.current,
+			backgroundsWrapperRef.current,
+		)
+	}, [])
+	
 	return (
 		<div>
 			<Head>
@@ -267,10 +284,11 @@ export default function Home() {
 			<Button left>All projects</Button>
 			<Button right>About</Button>
 
-			{typeof size === "number" && (
-				<Container id="desktop" {...handlers} onWheel={(e) => handleScroll(e)}>
-					<ArrowCircle Color={data[current].color} />
-					<TitlesWrapper>
+			<Preloader />
+
+			<Container id="desktop" {...handlers} onWheel={(e) => handleScroll(e)}>
+					<ArrowCircle ref={arrowCircleRef} dataColor={data[current].color} />
+					<TitlesWrapper ref={titlesWrapperRef}>
 						{data.map(({ index, title }) => (
 							<Title
 								key={index}
@@ -283,7 +301,7 @@ export default function Home() {
 							</Title>
 						))}
 					</TitlesWrapper>
-					<TextDivsWrapper dataSize={size}>
+					<TextDivsWrapper ref={textDivsWrapperRef}>
 						{data.map(({ color, index }) => (
 							<TextDiv
 								key={index}
@@ -292,7 +310,7 @@ export default function Home() {
 								ref={textDivRefs[index]}
 							/>
 						))}
-						<TextWrapper>
+						<TextWrapper ref={textWrapperRef}>
 							{data.map(({ id, index }) => (
 								<NumberIndex key={index}
 									ref={numberRefs[index]}
@@ -308,7 +326,7 @@ export default function Home() {
 							))}
 						</TextWrapper>
 					</TextDivsWrapper>
-					<BackgroundsWrapper>
+					<BackgroundsWrapper ref={backgroundsWrapperRef}>
 						{data.map(({ index, image }) => (
 							<Background
 								key={index}
@@ -321,7 +339,6 @@ export default function Home() {
 						))}
 					</BackgroundsWrapper>
 				</Container>
-			)}
 			<Container id="mobile">
 				<NumberIndex>No mobile boss.<br/>Open your laptop</NumberIndex>
 				<Text>

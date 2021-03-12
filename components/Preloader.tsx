@@ -10,6 +10,7 @@ const PreloaderContainer = styled.section`
 	left: 0;
 	background: #0b0b0b;
 	margin: auto;
+	z-index: 40;
 `;
 
 const LoadingBar = styled.main`
@@ -57,6 +58,7 @@ const TextContainer = styled.div`
 `;
 
 const Preloader: React.FC = () => {
+	const preloaderRef = useRef(null);
 	const blackTextRef = useRef(null);
 	const whiteTextRef = useRef(null);
 	const loadingBarRef = useRef(null);
@@ -72,7 +74,7 @@ const Preloader: React.FC = () => {
 	};
 
 	useEffect(() => {
-		const preload = gsap.timeline({ delay: 1 });
+		const preload = gsap.timeline({ delay: 2 });
 		preload.to(loadingBarRef.current, {
 			duration: 1,
 			transform: `translate3d(0%, 0, 0)`,
@@ -93,11 +95,12 @@ const Preloader: React.FC = () => {
 		});
 		preload.eventCallback("onComplete", () => {
 			preload.kill();
+			gsap.set(preloaderRef.current, {zIndex: -1})
 		});
 	}, []);
 
 	return (
-		<PreloaderContainer>
+		<PreloaderContainer ref={preloaderRef}>
 			<LoadingBar ref={loadingBarRef}></LoadingBar>
 			<Percentage className="number">
 				{loadingPercentage.toString().length === 1 && 0}

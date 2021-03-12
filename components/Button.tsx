@@ -5,17 +5,20 @@ export type ButtonProps = {
 	right?: boolean;
 };
 
-const Button = styled.a<ButtonProps>`
+const Button = styled.button<ButtonProps>`
 	cursor: pointer;
 	position: fixed;
 	top: 8%;
 	left: ${(p) => (p.left ? "5%" : "initial")};
 	right: ${(p) => (p.right ? "5%" : "initial")};
 	display: block;
+	background-color: transparent;
 	color: #fff;
 	font-size: 1em;
 	font-family: 'ApercuMedium', sans-serif;
 	text-decoration: none;
+	border: 0;
+	opacity: 0;
 	transition: opacity 0.9s cubic-bezier(0.19, 1, 0.22, 1),
 		transform .6s cubic-bezier(.19,1,.22,1);
 	z-index: 100;
