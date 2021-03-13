@@ -25,7 +25,7 @@ const IntroAnimation = (
 	gsap.set(textDivs, {xPercent: '-100', "clip-path": `inset(0px 0px 0px 0px)`})
 	
 
-	const intro = gsap.timeline({ delay: 5 });
+	const intro = gsap.timeline({ delay: 4 });
 	intro.to(backgrounds, {
 		duration: 1.2,
 		xPercent: 0,

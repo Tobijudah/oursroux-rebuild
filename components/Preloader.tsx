@@ -78,7 +78,7 @@ const Preloader: React.FC<PreloaderProps> = ({ setLoaded }) => {
 	};
 
 	useEffect(() => {
-		const preload = gsap.timeline({ delay: 2 });
+		const preload = gsap.timeline({ delay: 1 });
 		preload.to(loadingBarRef.current, {
 			duration: 1,
 			transform: `translate3d(0%, 0, 0)`,
