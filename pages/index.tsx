@@ -44,6 +44,7 @@ export default function Home() {
 	const titleRefs = useRefArray(data.length, "handle");
 	const numberRefs = useRefArray(data.length, "normal");
 	const textDivRefs = useRefArray(data.length, "normal");
+	const [isMobile, setIsMobile] = useState<boolean>(size <= 650);
 	const backgroundRefs = useRefArray(data.length, "handle");
 	const [isScrolling, setIsScrolling] = useState<boolean>(false);
 
@@ -236,14 +237,18 @@ export default function Home() {
   });
 
 	React.useEffect(() => {
-		IntroAnimation(
+		setIsMobile(size <= 650)
+	}, [size])
+
+	React.useEffect(() => {
+		!isMobile && current === 0 && IntroAnimation(
 			arrowCircleRef.current,
 			textWrapperRef.current,
 			titlesWrapperRef.current,
 			textDivsWrapperRef.current,
 			backgroundsWrapperRef.current,
 		)
-	}, [])
+	}, [isMobile])
 	
 	return (
 		<div>
@@ -284,67 +289,67 @@ export default function Home() {
 			<Button left>All projects</Button>
 			<Button right>About</Button>
 
-			<Preloader />
+			{!isMobile && current === 0 && <Preloader />}
 
-			<Container id="desktop" {...handlers} onWheel={(e) => handleScroll(e)}>
-					<ArrowCircle ref={arrowCircleRef} dataColor={data[current].color} />
-					<TitlesWrapper ref={titlesWrapperRef}>
-						{data.map(({ index, title }) => (
-							<Title
-								key={index}
-								dataSize={size}
-								dataIndex={index}
-								dataCurrent={current}
-								ref={titleRefs[index]}
-							>
-								{title}
-							</Title>
-						))}
-					</TitlesWrapper>
-					<TextDivsWrapper ref={textDivsWrapperRef}>
-						{data.map(({ color, index }) => (
-							<TextDiv
-								key={index}
+			{!isMobile && <Container {...handlers} onWheel={(e) => handleScroll(e)}>
+				<ArrowCircle ref={arrowCircleRef} dataColor={data[current].color} />
+				<TitlesWrapper ref={titlesWrapperRef}>
+					{data.map(({ index, title }) => (
+						<Title
+							key={index}
+							dataSize={size}
+							dataIndex={index}
+							dataCurrent={current}
+							ref={titleRefs[index]}
+						>
+							{title}
+						</Title>
+					))}
+				</TitlesWrapper>
+				<TextDivsWrapper dataSize={size} ref={textDivsWrapperRef}>
+					{data.map(({ color, index }) => (
+						<TextDiv
+							key={index}
+							tabIndex={index}
+							dataColor={color}
+							ref={textDivRefs[index]}
+						/>
+					))}
+					<TextWrapper ref={textWrapperRef}>
+						{data.map(({ id, index }) => (
+							<NumberIndex key={index}
+								ref={numberRefs[index]}
 								tabIndex={index}
-								dataColor={color}
-								ref={textDivRefs[index]}
-							/>
+							>
+								{id}
+							</NumberIndex>
 						))}
-						<TextWrapper ref={textWrapperRef}>
-							{data.map(({ id, index }) => (
-								<NumberIndex key={index}
-									ref={numberRefs[index]}
-									tabIndex={index}
-								>
-									{id}
-								</NumberIndex>
-							))}
-							{data.map(({ text, index }) => (
-								<Text key={index} ref={textRefs[index]} tabIndex={index}>
-									<p>{text}</p>
-								</Text>
-							))}
-						</TextWrapper>
-					</TextDivsWrapper>
-					<BackgroundsWrapper ref={backgroundsWrapperRef}>
-						{data.map(({ index, image }) => (
-							<Background
-								key={index}
-								dataSize={size}
-								dataIndex={index}
-								dataImage={image}
-								dataCurrent={current}
-								ref={backgroundRefs[index]}
-							/>
+						{data.map(({ text, index }) => (
+							<Text key={index} ref={textRefs[index]} tabIndex={index}>
+								<p>{text}</p>
+							</Text>
 						))}
-					</BackgroundsWrapper>
-				</Container>
-			<Container id="mobile">
+					</TextWrapper>
+				</TextDivsWrapper>
+				<BackgroundsWrapper ref={backgroundsWrapperRef}>
+					{data.map(({ index, image }) => (
+						<Background
+							key={index}
+							dataSize={size}
+							dataIndex={index}
+							dataImage={image}
+							dataCurrent={current}
+							ref={backgroundRefs[index]}
+						/>
+					))}
+				</BackgroundsWrapper>
+			</Container>}
+			{isMobile && <Container>
 				<NumberIndex>No mobile boss.<br/>Open your laptop</NumberIndex>
 				<Text>
 					<a target="_blank" rel="noopener noreferrer" href='http://mobile.oursroux.com'>https://mobile.oursroux.com/</a>
 				</Text>
-			</Container>
+			</Container>}
 		</div>
 	);
 }

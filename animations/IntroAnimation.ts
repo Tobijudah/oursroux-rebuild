@@ -14,10 +14,11 @@ const IntroAnimation = (
 	backgrounds: gsap.TweenTarget,
 ) => {
 
+	gsap.set(texts, {opacity: 0})
 	gsap.set(circle, {right: '-5%'})
-	gsap.set(titles, {xPercent: '-100'})
-	gsap.set(textDivs, {xPercent: '-100'})
 	gsap.set(backgrounds, {xPercent: '-110'})
+	gsap.set(titles, {xPercent: '-100', opacity: 0})
+	gsap.set(textDivs, {xPercent: '-100', "clip-path": `inset(0px 0px 0px 0px)`})
 
 	const intro = gsap.timeline({ delay: 5 });
 	intro.to(backgrounds, {

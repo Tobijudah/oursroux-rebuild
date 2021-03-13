@@ -1,13 +1,17 @@
 import styled from "styled-components";
 
-const TextDivsWrapper = styled.section`
+type TextDivsWrapperProps = {
+  dataSize: number;
+}
+
+const TextDivsWrapper = styled.section<TextDivsWrapperProps>`
   position: fixed;
   top: 0;
   left: 0;
   width: 50%;
   height: 100%;
   margin: auto;
-  clip-path: inset(0px 0px 0px 0px);
+  clip-path: ${p => `inset(0px 0px 0px ${p.dataSize / 10}px)`};
   opacity: 1;
   transform: matrix(1, 0, 0, 1, 0, 0);
   overflow: hidden;

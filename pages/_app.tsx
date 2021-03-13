@@ -52,15 +52,6 @@ const GlobalStyle: GlobalStyleComponent<{}, DefaultTheme> = createGlobalStyle`
 		}
 	}
 
-	@media (max-width: 650px) {
-		#desktop {
-			display: none;
-		}
-		#mobile {
-			display: block;
-		}
-	}
-
 `;
 
 function MyApp({ Component, pageProps }: AppProps) {
