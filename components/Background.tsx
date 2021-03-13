@@ -60,7 +60,7 @@ const BackgroundImage = styled.div<BackgroundImageProps>`
 	margin: auto;
 	width: 100%;
 	height: 100%;
-	background-image: url(${(p) => `images/${p.dataImage}.jpg`});
+	background-image: url(${(p) => p.dataImage});
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
