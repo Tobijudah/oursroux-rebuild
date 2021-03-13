@@ -20,6 +20,9 @@ const NumberIndex = styled.h2`
 		visibility: hidden;
 		opacity: 0;
 	}
+	span {
+		font-size: 0.8rem;
+	}
 `;
 
 export default NumberIndex;

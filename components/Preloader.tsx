@@ -2,6 +2,10 @@ import gsap from "gsap";
 import styled from "styled-components";
 import React, { useEffect, useRef, useState } from "react";
 
+type PreloaderProps = {
+	setLoaded: React.Dispatch<React.SetStateAction<boolean>>
+}
+
 const PreloaderContainer = styled.section`
 	position: fixed;
 	top: 0;
@@ -57,7 +61,7 @@ const TextContainer = styled.div`
 	}
 `;
 
-const Preloader: React.FC = () => {
+const Preloader: React.FC<PreloaderProps> = ({ setLoaded }) => {
 	const preloaderRef = useRef(null);
 	const blackTextRef = useRef(null);
 	const whiteTextRef = useRef(null);
@@ -95,6 +99,7 @@ const Preloader: React.FC = () => {
 		});
 		preload.eventCallback("onComplete", () => {
 			preload.kill();
+			setLoaded(true)
 			gsap.set(preloaderRef.current, {zIndex: -1})
 		});
 	}, []);

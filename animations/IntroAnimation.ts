@@ -7,6 +7,8 @@ gsap.config({
 });
 
 const IntroAnimation = (
+	underline: gsap.TweenTarget,
+	scrollText: gsap.TweenTarget,
 	circle: gsap.TweenTarget,
 	texts: gsap.TweenTarget,
 	titles: gsap.TweenTarget,
@@ -16,9 +18,12 @@ const IntroAnimation = (
 
 	gsap.set(texts, {opacity: 0})
 	gsap.set(circle, {right: '-5%'})
+	gsap.set(scrollText, {yPercent: 100})
+	gsap.set(underline, {xPercent: -100})
 	gsap.set(backgrounds, {xPercent: '-110'})
 	gsap.set(titles, {xPercent: '-100', opacity: 0})
 	gsap.set(textDivs, {xPercent: '-100', "clip-path": `inset(0px 0px 0px 0px)`})
+	
 
 	const intro = gsap.timeline({ delay: 5 });
 	intro.to(backgrounds, {
@@ -58,6 +63,14 @@ const IntroAnimation = (
 		duration: 0.5,
 		opacity: 1,
 	}, '-=0.25')
+	.to(scrollText, {
+		duration: 0.5,
+		yPercent: 0,
+	}, '-=0.25')
+	.to(underline, {
+		duration: 0.5,
+		xPercent: 0,
+	})
 	.eventCallback('onStart', () => gsap.set('button', {opacity: 1}))
 	.eventCallback('onComplete', () => intro.kill())
 };
