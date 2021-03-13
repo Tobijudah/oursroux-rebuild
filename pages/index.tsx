@@ -268,16 +268,19 @@ export default function Home() {
 				@font-face {
 					font-family: 'Potrait';
 					src: url('fonts/Portrait-Light.woff') format('woff');
+					font-display: swap;
 				}
 
 				@font-face {
 					font-family: 'ApercuLight';
 					src: url('fonts/ApercuLight.woff') format('woff');
+					font-display: swap;
 				}
 
 				@font-face {
 					font-family: 'ApercuMedium';
 					src: url('fonts/ApercuMedium.woff') format('woff');
+					font-display: swap;
 				}
 			`}</style>
 
